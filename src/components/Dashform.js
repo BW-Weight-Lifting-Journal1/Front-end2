@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { WorkOutContext } from "../contexts/WorkOutContext";
 
 const Form = props => {
+  const { userId } = useContext(WorkOutContext);
   const [workout, setWorkout] = useState({
     date: Date(),
     name: "",
@@ -19,12 +21,15 @@ const Form = props => {
   const handleSubmit = event => {
     event.preventDefault();
     props.addNewWorkout(workout);
+    console.log(userId);
     setWorkout({ name: "", weight: "", reps: "" });
   };
 
   return (
     <div>
-        <label><h1>Journal Entry</h1></label>
+      <label>
+        <h1>Journal Entry</h1>
+      </label>
       <form onSubmit={handleSubmit}>
         <br />
         <input
@@ -70,7 +75,7 @@ const Form = props => {
           onChange={handleChanges}
         />
         <br />
-        
+
         <button type="submit" id="addWorkout">
           Add Entry
         </button>
