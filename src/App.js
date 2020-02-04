@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 import Welcome from "./components/User/WelcomePage";
+import EditWorkout from "./components/EditWorkout"
 import GuestLogin from "./components/User/GuestLogin";
 import GuestRegister from "./components/User/GuestRegister";
 import ProtectedRoute from "./Auth/ProtectedRoute";
@@ -12,10 +13,20 @@ import { WorkOutContext } from "./contexts/WorkOutContext";
 import { ExcerciseContext } from "./contexts/ExcerciseContext";
 import Dashboard from "./components/Dashboard";
 
-function App() {
+function App(props) {
   const [workOut, setWorkOut] = useState([]);
   const [excercise, setExcercise] = useState({});
   const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get("/api/workouts")
+      .then(res => {
+        // console.log(res.data);
+        setWorkOut(res.data);
+        // setWorkOut(res.data);
+      });
+  }, [setWorkOut]);
 
   const addWorkout = item => {
     console.log("item passed to addWorkout in App.js", item);
@@ -24,7 +35,7 @@ function App() {
     axiosWithAuth()
       .post("api/workouts", item)
       .then(response => {
-        setWorkOut(response.data);
+        setWorkOut(...workOut, response.data);
         console.log(response);
       })
       .catch(err => console.log(err));
@@ -40,7 +51,7 @@ function App() {
     //     item
     //   )
     //   .then(response => {
-    //     setExcercise(response.data);
+    //     setExcercise(response.data);`
     //   })
     //   .catch(err => console.log(err));
   };
@@ -48,13 +59,14 @@ function App() {
   const wrkout1 = useContext(WorkOutContext);
 
   return (
-    <WorkOutContext.Provider value={{ workOut, addWorkout, userId, addUserId }}>
+    <WorkOutContext.Provider value={{ workOut, addWorkout, userId, setUserId, setWorkOut }}>
       <ExcerciseContext.Provider value={{ excercise, addExcercise }}>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <Route path="/edit/:id" component={EditWorkout} />
           <header>
             <p>Workout Notes: {wrkout1.notes}</p>
             <p>Workout Date: {wrkout1.date}</p>

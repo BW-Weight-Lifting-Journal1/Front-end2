@@ -21,7 +21,7 @@ const Form = props => {
   const handleSubmit = event => {
     event.preventDefault();
     props.addNewWorkout(workout);
-    console.log(userId);
+    console.log("userId", userId);
     setWorkout({ name: "", weight: "", reps: "" });
   };
 
