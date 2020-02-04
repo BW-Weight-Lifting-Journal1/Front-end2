@@ -5,17 +5,17 @@ import { Div, Main } from "./User/theme";
 import styled from "styled-components";
 import { WorkOutContext } from "../contexts/WorkOutContext";
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const [workout, setWorkout] = useState([]);
   const { workOut, addWorkout, userId } = useContext(WorkOutContext);
-  console.log("Dashboard", userId);
+
   const addNewWorkout = work => {
     const newWorkout = {
       workout_note: work.notes,
       workout_date: Date(),
-      user_id: userId
+      "user_id": userId
     };
-    addWorkout([...workOut, newWorkout]);
+    addWorkout([newWorkout]);
   };
 
   // const Body = styled.body`
@@ -53,7 +53,7 @@ export default function Dashboard() {
         </FormDiv>
       </Main>
       <CardList>
-        <WorkoutCard workOut={workOut} />
+        <WorkoutCard history={props.history} />
       </CardList>
     </Div>
   );
