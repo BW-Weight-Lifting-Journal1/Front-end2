@@ -11,6 +11,7 @@ import axiosWithAuth from "./Auth/axiosWithAuth";
 import { WorkOutContext } from "./contexts/WorkOutContext";
 import { ExcerciseContext } from "./contexts/ExcerciseContext";
 import Dashboard from "./components/Dashboard";
+import Workout from "./components/Workout"
 
 function App() {
   const [workOut, setWorkOut] = useState([]);
@@ -55,13 +56,7 @@ function App() {
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
-          <header>
-            <p>Workout Notes: {wrkout1.notes}</p>
-            <p>Workout Date: {wrkout1.date}</p>
-            <p>Excercise Name: {excrcse1.name}</p>
-            <p>Excercise Reps: {excrcse1.reps}</p>
-            <p>Excercise Weight: {excrcse1.weight}</p>
-          </header>
+          <ProtectedRoute path="/dashboard/workout/:id" component={Workout} />
         </Switch>
       </ExcerciseContext.Provider>
     </WorkOutContext.Provider>
