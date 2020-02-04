@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { WorkOutContext } from "../contexts/WorkOutContext";
 import axiosWithAuth from "../Auth/axiosWithAuth";
+import { Link} from "react-router-dom";
 
 export default function WorkoutCard(props) {
   const { workOut, setWorkOut } = useContext(WorkOutContext);
@@ -27,8 +28,10 @@ export default function WorkoutCard(props) {
       {workouts.map(workout => {
         return (
           <CardContainer key={workout.id}>
-            <p>{workout.id}</p>
-            <p>Notes: {workout.workout_note}</p>
+            <Link to={`/workout/${workout.id}`}>
+              <p>{workout.id}</p>
+              <p>Notes: {workout.workout_note}</p>
+            </Link>
             <button onClick={e => routeToItem(e, workout)}>Edit</button>
           </CardContainer>
         );
