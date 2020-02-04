@@ -67,7 +67,7 @@ function App(props) {
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
-          <ProtectedRoute path="/dashboard/workout/:id" component={Workout} />
+          <ProtectedRoute path="/workout/:id" component={Workout} />
         </Switch>
       </ExcerciseContext.Provider>
     </WorkOutContext.Provider>
