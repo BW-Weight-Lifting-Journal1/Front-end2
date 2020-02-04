@@ -5,15 +5,17 @@ import axiosWithAuth from "../../Auth/axiosWithAuth";
 import { WorkOutContext } from "../../contexts/WorkOutContext";
 
 export default function GuestLogin(props) {
-  const { addUserId } = useContext(WorkOutContext);
+
+  const { setUserId } = useContext(WorkOutContext);
   const [err, setErr] = useState();
 
   const [data, setData] = useState({
-    username: "",
-    password: ""
+    "username": "",
+    "password": ""
   });
 
   const handleChange = e => {
+    e.preventDefault();
     setData({
       ...data,
       [e.target.name]: e.target.value
@@ -29,7 +31,7 @@ export default function GuestLogin(props) {
         localStorage.setItem("token", result.data.token);
         props.history.push("/dashboard");
         console.log(result.data.user_id);
-        addUserId(result.data.user_id);
+        setUserId(result.data.user_id);
       })
       .catch(e => {
         setErr(e.response.data);
