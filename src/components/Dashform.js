@@ -31,40 +31,6 @@ const Form = props => {
         <h1>Journal Entry</h1>
       </label>
       <form onSubmit={handleSubmit}>
-        <br />
-        <input
-          type="text"
-          id="name"
-          placeholder="Name Of Workout"
-          name="name"
-          value={workout.name}
-          onChange={handleChanges}
-          required
-        />
-        <br />
-        <br />
-        <input
-          className="form-numbers"
-          type="text"
-          id="weight"
-          placeholder="Weight"
-          name="weight"
-          value={workout.weight}
-          onChange={handleChanges}
-          required
-        />
-        <input
-          className="form-numbers"
-          type="text"
-          id="reps"
-          placeholder="Reps"
-          name="reps"
-          value={workout.reps}
-          onChange={handleChanges}
-          required
-        />
-        <br />
-        <br />
         <input
           className="form-notes"
           type="text"
@@ -77,7 +43,7 @@ const Form = props => {
         <br />
 
         <button type="submit" id="addWorkout">
-          Add Entry
+          New Workout
         </button>
       </form>
     </div>
