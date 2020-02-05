@@ -14,7 +14,6 @@ import axiosWithAuth from "./Auth/axiosWithAuth";
 // Contexts
 import { WorkOutContext } from "./contexts/WorkOutContext";
 import { ExerciseContext } from "./contexts/ExerciseContext";
-import Dashboard from "./components/Dashboard";
 import ExercisePage from "./components/ExercisePage";
 
 function App(props) {
