@@ -40,7 +40,7 @@ function App(props) {
         setWorkOut(...workOut, response.data);
         console.log(response);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   };
 
   const addUserId = item => {
