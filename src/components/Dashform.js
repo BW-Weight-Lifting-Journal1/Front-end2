@@ -1,13 +1,9 @@
-import React, { useState, useContext } from "react";
-import { WorkOutContext } from "../contexts/WorkOutContext";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const Form = props => {
-  const { userId } = useContext(WorkOutContext);
   const [workout, setWorkout] = useState({
     date: Date(),
-    name: "",
-    weight: "",
-    reps: "",
     notes: ""
   });
 
@@ -21,8 +17,7 @@ const Form = props => {
   const handleSubmit = event => {
     event.preventDefault();
     props.addNewWorkout(workout);
-    console.log("userId", userId);
-    setWorkout({ name: "", weight: "", reps: "" });
+    setWorkout({ notes: "" });
   };
 
   return (
@@ -41,13 +36,22 @@ const Form = props => {
           onChange={handleChanges}
         />
         <br />
-
-        <button type="submit" id="addWorkout">
+        <StyledButton id="addWorkout">
           New Workout
-        </button>
+        </StyledButton>
       </form>
     </div>
   );
 };
 
 export default Form;
+
+const StyledButton = styled.button`
+  background: #02848E;
+  font-size: 1em;
+  margin: 0.5em;
+  padding: .4em 0.75em;
+  border: none;
+  border-radius: 3px;
+  margin-top: 3%;
+`;

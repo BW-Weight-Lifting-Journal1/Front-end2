@@ -1,17 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Title from "./WelcomeTitle";
 import { FormDiv, Div, Main } from "./theme";
 import axiosWithAuth from "../../Auth/axiosWithAuth";
-import { WorkOutContext } from "../../contexts/WorkOutContext";
 
 export default function GuestLogin(props) {
-
-  const { setUserId } = useContext(WorkOutContext);
   const [err, setErr] = useState();
-
   const [data, setData] = useState({
-    "username": "",
-    "password": ""
+    username: "",
+    password: ""
   });
 
   const handleChange = e => {
@@ -24,14 +20,13 @@ export default function GuestLogin(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     axiosWithAuth()
       .post("/api/auth/login", data)
       .then(result => {
         localStorage.setItem("token", result.data.token);
         props.history.push("/dashboard");
         console.log(result.data.user_id);
-        setUserId(result.data.user_id);
+        localStorage.setItem("user_id", result.data.user_id);
       })
       .catch(e => {
         setErr(e.response.data);
