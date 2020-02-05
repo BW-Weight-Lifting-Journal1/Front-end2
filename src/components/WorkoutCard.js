@@ -27,7 +27,7 @@ export default function WorkoutCard(props) {
       {workouts.map(workout => {
         return (
           <CardContainer key={workout.id}>
-            <p>{workout.id}</p>
+            <p>{workout.Workout_date}</p>
             <p>Notes: {workout.workout_note}</p>
             <button onClick={e => routeToItem(e, workout)}>Edit</button>
           </CardContainer>
