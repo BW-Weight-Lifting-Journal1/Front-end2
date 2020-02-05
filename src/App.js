@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import axios from "axios";
 import "./App.css";
+import axios from "axios";
 import Welcome from "./components/User/WelcomePage";
 import EditWorkout from "./components/EditWorkout"
 import GuestLogin from "./components/User/GuestLogin";
@@ -10,12 +10,13 @@ import ProtectedRoute from "./Auth/ProtectedRoute";
 import axiosWithAuth from "./Auth/axiosWithAuth";
 // Contexts
 import { WorkOutContext } from "./contexts/WorkOutContext";
-import { ExcerciseContext } from "./contexts/ExcerciseContext";
+import { ExerciseContext } from "./contexts/ExerciseContext";
 import Dashboard from "./components/Dashboard";
+import ExercisePage from "./components/ExercisePage";
 
 function App(props) {
   const [workOut, setWorkOut] = useState([]);
-  const [excercise, setExcercise] = useState({});
+  const [exercise, setExercise] = useState({});
   const [userId, setUserId] = useState();
 
   useEffect(() => {
@@ -40,32 +41,34 @@ function App(props) {
       })
       .catch(err => console.log(err));
   };
+ 
   const addUserId = item => {
     setUserId(item);
     console.log("userId", userId);
   };
-  const addExcercise = item => {
-    // axios
-    //   .post(
-    //     "https://workout-journal-backend.herokuapp.com/api/workout/excercise",
-    //     item
-    //   )
-    //   .then(response => {
-    //     setExcercise(response.data);`
-    //   })
-    //   .catch(err => console.log(err));
+  const addExercise = item => {
+    axios
+      .post(
+        "https://workout-journal-backend.herokuapp.com/api/workout/excercise",
+        item
+      )
+      .then(response => {
+        setExercise(...exercise, response.data);
+      })
+      .catch(err => console.log(err));
   };
-  const excrcse1 = useContext(ExcerciseContext);
+  const excrcse1 = useContext(ExerciseContext);
   const wrkout1 = useContext(WorkOutContext);
 
   return (
     <WorkOutContext.Provider value={{ workOut, addWorkout, userId, setUserId, setWorkOut }}>
-      <ExcerciseContext.Provider value={{ excercise, addExcercise }}>
+      <ExerciseContext.Provider value={{ exercise, setExercise }}>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <Route path="/exercises" component={ExercisePage} />
           <Route path="/edit/:id" component={EditWorkout} />
           <header>
             <p>Workout Notes: {wrkout1.notes}</p>
@@ -75,7 +78,7 @@ function App(props) {
             <p>Excercise Weight: {excrcse1.weight}</p>
           </header>
         </Switch>
-      </ExcerciseContext.Provider>
+      </ExerciseContext.Provider>
     </WorkOutContext.Provider>
   );
 }
