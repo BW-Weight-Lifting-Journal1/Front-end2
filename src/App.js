@@ -75,13 +75,14 @@ function App(props) {
       .catch(err => console.log(err))
   };
 
-  const deleteItem = id => {
-    console.log("delete id", id)
-    axiosWithAuth()
-      .delete(`/api/workouts/${id}`)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-  }
+//   const deleteItem = id => {
+//     console.log("delete id", id)
+//     axiosWithAuth()
+//       .delete(`/api/workouts/${id}`)
+//       .then(res => {
+//       console.log(res))
+//       .catch(err => console.log(err))
+//   }
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
