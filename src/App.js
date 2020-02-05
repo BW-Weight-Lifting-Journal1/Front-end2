@@ -72,7 +72,7 @@ function App(props) {
         console.log(response)
         setExercise(response.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
   };
 
   const deleteItem = id => {
