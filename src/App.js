@@ -51,7 +51,7 @@ function App(props) {
   /*const addExercise = item => {
     axios
       .post(
-        "https://workout-journal-backend.herokuapp.com/api/workout/excercise",
+        "https://workout-journal-backend.herokuapp.com/api/workout/exercise",
         item
       )
       .then(response => {
@@ -66,12 +66,12 @@ function App(props) {
     <WorkOutContext.Provider value={{ workOut, addWorkout, userId, setUserId, setWorkOut }}>
       <ExerciseContext.Provider value={{ exercise, setExercise }}>
 
-  const addExcercise = item => {
+  const addExercise = item => {
     axiosWithAuth()
-      .post("api/workout/excercise", item)
+      .post("api/workout/exercise", item)
       .then(response => {
         console.log(response)
-        setExcercise(response.data);
+        setExercise(response.data);
       })
       .catch(err => console.log(err));
   };
@@ -93,9 +93,9 @@ function App(props) {
           <header>
             <p>Workout Notes: {wrkout1.notes}</p>
             <p>Workout Date: {wrkout1.date}</p>
-            <p>Excercise Name: {excrcse1.name}</p>
-            <p>Excercise Reps: {excrcse1.reps}</p>
-            <p>Excercise Weight: {excrcse1.weight}</p>
+            <p>Exercise Name: {excrcse1.name}</p>
+            <p>Exercise Reps: {excrcse1.reps}</p>
+            <p>Exercise Weight: {excrcse1.weight}</p>
           </header>
         </Switch>
       </ExerciseContext.Provider>
