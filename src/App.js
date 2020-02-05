@@ -61,9 +61,6 @@ function App(props) {
   const excrcse1 = useContext(ExerciseContext);
   const wrkout1 = useContext(WorkOutContext);
 
-  return (
-    <WorkOutContext.Provider value={{ workOut, addWorkout, userId, setUserId, setWorkOut }}>
-      <ExerciseContext.Provider value={{ exercise, setExercise }}>
 
   const addExercise = item => {
     axiosWithAuth()
@@ -83,6 +80,9 @@ function App(props) {
 //       console.log(res))
 //       .catch(err => console.log(err))
 //   }
+   return (
+    <WorkOutContext.Provider value={{ workOut, addWorkout, userId, setUserId, setWorkOut }}>
+      <ExerciseContext.Provider value={{ exercise, setExercise }}>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
