@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Div = styled.div`
     background-color: #006494;
     background-image: url("https://www.transparenttextures.com/patterns/white-wall-3.png");
-    height: 100vh;
+    height: 150vh;
     margin: 0;
     padding: 0;
     `;

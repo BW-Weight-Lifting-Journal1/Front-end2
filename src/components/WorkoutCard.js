@@ -2,26 +2,27 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { WorkOutContext } from "../contexts/WorkOutContext";
 import axiosWithAuth from "../Auth/axiosWithAuth";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function WorkoutCard(props) {
-  const { workOut, setWorkOut } = useContext(WorkOutContext);
+  const { deleteItem } = useContext(WorkOutContext);
   const [workouts, setWorkouts] = useState([]);
-  // console.log("WorkOut in WorkoutCard", workOut);
 
   function routeToItem(ev, workout) {
-    // console.log(props);
     props.history.push(`/edit/${workout.id}`);
   }
+
   useEffect(() => {
     axiosWithAuth()
       .get("/api/workouts")
       .then(res => {
-        // console.log(res.data);
-        // setWorkOut(res.data);
         setWorkouts(res.data);
       });
   }, [workouts]);
+
+  const deleteHandler = (e, id) => {
+    deleteItem(id);
+  };
 
   return (
     <Container>
@@ -29,10 +30,11 @@ export default function WorkoutCard(props) {
         return (
           <CardContainer key={workout.id}>
             <Link to={`/workout/${workout.id}`}>
-              <p>{workout.id}</p>
+              <p>Workout Id: {workout.id}</p>
               <p>Notes: {workout.workout_note}</p>
             </Link>
-            <button onClick={e => routeToItem(e, workout)}>Edit</button>
+            <StyledButton onClick={e => routeToItem(e, workout)}>Edit</StyledButton>
+            <StyledButton onClick={e => deleteHandler(e, workout.id)}>Delete</StyledButton>
           </CardContainer>
         );
       })}
@@ -55,4 +57,14 @@ const Container = styled.div`
   flex-wrap: wrap;
   width: 100%;
   height: 300px;
+`;
+
+const StyledButton = styled.button`
+  background: #eca400;
+  font-size: 1em;
+  margin: 0.5em;
+  padding: 0.3em 0.75em;
+  border: none;
+  border-radius: 3px;
+  margin-top: 8%;
 `;

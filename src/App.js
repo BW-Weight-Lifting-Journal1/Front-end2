@@ -1,11 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
+// Components
 import Welcome from "./components/User/WelcomePage";
 import EditWorkout from "./components/EditWorkout"
 import GuestLogin from "./components/User/GuestLogin";
 import GuestRegister from "./components/User/GuestRegister";
+import Dashboard from "./components/Dashboard";
+// Utils 
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import axiosWithAuth from "./Auth/axiosWithAuth";
 // Contexts
@@ -31,7 +34,6 @@ function App(props) {
 
   const addWorkout = item => {
     console.log("item passed to addWorkout in App.js", item);
-    // setWorkOut(...workOut, item);
     console.log("workOut in App.js", workOut);
     axiosWithAuth()
       .post("api/workouts", item)
@@ -41,12 +43,12 @@ function App(props) {
       })
       .catch(err => console.log(err));
   };
- 
+
   const addUserId = item => {
     setUserId(item);
     console.log("userId", userId);
   };
-  const addExercise = item => {
+  /*const addExercise = item => {
     axios
       .post(
         "https://workout-journal-backend.herokuapp.com/api/workout/excercise",
@@ -56,13 +58,31 @@ function App(props) {
         setExercise(...exercise, response.data);
       })
       .catch(err => console.log(err));
-  };
+  };*/
   const excrcse1 = useContext(ExerciseContext);
   const wrkout1 = useContext(WorkOutContext);
 
   return (
     <WorkOutContext.Provider value={{ workOut, addWorkout, userId, setUserId, setWorkOut }}>
       <ExerciseContext.Provider value={{ exercise, setExercise }}>
+
+  const addExcercise = item => {
+    axiosWithAuth()
+      .post("api/workout/excercise", item)
+      .then(response => {
+        console.log(response)
+        setExcercise(response.data);
+      })
+      .catch(err => console.log(err));
+  };
+
+  const deleteItem = id => {
+    console.log("delete id", id)
+    axiosWithAuth()
+      .delete(`/api/workouts/${id}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
