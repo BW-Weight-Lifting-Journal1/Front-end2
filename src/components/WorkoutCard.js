@@ -49,11 +49,12 @@ const CardContainer = styled.div`
   border-radius: 60px;
   margin: 20px;
   text-align: center;
+  box-shadow: 9px 11px 37px 0px rgba(0,0,0,0.75);
 `;
 
 const Container = styled.div`
   display: flex;
-  justify-content: left;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
   height: 300px;
