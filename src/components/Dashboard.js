@@ -18,6 +18,7 @@ export default function Dashboard(props) {
       "user_id": user_id
     };
     addWorkout([newWorkout]);
+    console.log("newWorkout", newWorkout)
   };
 
   return (
