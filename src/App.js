@@ -7,16 +7,18 @@ import EditWorkout from "./components/EditWorkout"
 import GuestLogin from "./components/User/GuestLogin";
 import GuestRegister from "./components/User/GuestRegister";
 import Dashboard from "./components/Dashboard";
+import ExercisePage from "./components/ExercisePage";
 // Utils 
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import axiosWithAuth from "./Auth/axiosWithAuth";
 // Contexts
 import { WorkOutContext } from "./contexts/WorkOutContext";
-import { ExcerciseContext } from "./contexts/ExcerciseContext";
+import { ExerciseContext } from "./contexts/ExerciseContext";
 
 function App(props) {
   const [workOut, setWorkOut] = useState([]);
-  const [excercise, setExcercise] = useState({});
+  const [exercise, setExercise] = useState({});
+  const [workOutId, setWorkOutId] = useState();
 
   const addWorkout = item => {
     console.log("item passed to addWorkout in App.js", item);
@@ -30,12 +32,12 @@ function App(props) {
       .catch(err => console.log(err));
   };
 
-  const addExcercise = item => {
+  const addExercise = (item) => {
     axiosWithAuth()
-      .post("api/workout/excercise", item)
+      .post("api/workouts/exercises", item)
       .then(response => {
-        console.log(response)
-        setExcercise(response.data);
+        console.log("addExercise", item)
+        setExercise(...exercise, response.data);
       })
       .catch(err => console.log(err));
   };
@@ -48,17 +50,20 @@ function App(props) {
       .catch(err => console.log(err))
   }
 
-  const excrcse1 = useContext(ExcerciseContext);
+
+
+  const excrcse1 = useContext(ExerciseContext);
   const wrkout1 = useContext(WorkOutContext);
 
   return (
     <WorkOutContext.Provider value={{ workOut, addWorkout, setWorkOut, deleteItem }}>
-      <ExcerciseContext.Provider value={{ excercise, addExcercise }}>
+      <ExerciseContext.Provider value={{ exercise, addExercise, workOutId, setWorkOutId }}>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
+          <Route path="/exercises/:id" component={ExercisePage} />
           <Route path="/edit/:id" component={EditWorkout} />
           <header>
             <p>Workout Notes: {wrkout1.notes}</p>
@@ -68,7 +73,7 @@ function App(props) {
             <p>Excercise Weight: {excrcse1.weight}</p>
           </header>
         </Switch>
-      </ExcerciseContext.Provider>
+      </ExerciseContext.Provider>
     </WorkOutContext.Provider>
   );
 }

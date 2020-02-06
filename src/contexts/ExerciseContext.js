@@ -1,10 +1,10 @@
 import { createContext } from "react";
 
-const initialExcercise = {
+const initialExercise = {
   name: "Push Up",
   reps: "15",
   weight: "150lbs",
   muscles_targeted: "Chest & Arms"
 };
 
-export const ExcerciseContext = createContext(initialExcercise);
+export const ExerciseContext = createContext(initialExercise);
