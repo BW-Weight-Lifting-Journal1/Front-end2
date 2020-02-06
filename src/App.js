@@ -17,7 +17,7 @@ import { ExerciseContext } from "./contexts/ExerciseContext";
 
 function App(props) {
   const [workOut, setWorkOut] = useState([]);
-  const [exercise, setExercise] = useState({});
+  const [exercise, setExercise] = useState([]);
   const [workOutId, setWorkOutId] = useState();
 
   const addWorkout = item => {
@@ -36,12 +36,13 @@ function App(props) {
     axiosWithAuth()
       .post("api/workouts/exercises", item)
       .then(response => {
-        console.log("addExercise", item)
         setExercise(...exercise, response.data);
+        console.log("addExercise Response", response)
+        console.log("item being passed to addExercise", item)
       })
       .catch(err => console.log(err));
   };
-
+  console.log(exercise)
   const deleteItem = id => {
     console.log("delete id", id)
     axiosWithAuth()
@@ -63,7 +64,7 @@ function App(props) {
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
-          <Route path="/exercises/:id" component={ExercisePage} />
+          <Route path="/exercises/:id" things={props} component={ExercisePage} />
           <Route path="/edit/:id" component={EditWorkout} />
           <header>
             <p>Workout Notes: {wrkout1.notes}</p>
