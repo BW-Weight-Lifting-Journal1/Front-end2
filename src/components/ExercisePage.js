@@ -8,8 +8,8 @@ import { ExerciseContext } from "../contexts/ExerciseContext";
 export default function ExercisePage(props) {
     //   const [exercise, setExercise] = useState([]);
     const { addExercise, userId } = useContext(ExerciseContext);
-    const user_id = localStorage.getItem("user_id")
-    const workout_id = props.match.params.id;
+    const user_id = Number(localStorage.getItem("user_id"))
+    const workout_id = Number(props.match.params.id);
 
     const addNewExercise = exercise => {
         const newExercise = {
@@ -20,9 +20,9 @@ export default function ExercisePage(props) {
             "workout_id": workout_id,
             "user_id": user_id
         };
-        addExercise([newExercise]);
+        addExercise(newExercise);
     };
-    console.log("ExercisePage", props)
+
     const FormDiv = styled.div`
     margin: auto;
     text-align: center;

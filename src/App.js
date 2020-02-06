@@ -19,6 +19,7 @@ function App(props) {
   const [workOut, setWorkOut] = useState([]);
   const [exercise, setExercise] = useState([]);
   const [workOutId, setWorkOutId] = useState();
+  const user_id = Number(localStorage.getItem("user_id"))
 
   const addWorkout = item => {
     console.log("item passed to addWorkout in App.js", item);
@@ -27,7 +28,7 @@ function App(props) {
       .post("api/workouts", item)
       .then(response => {
         setWorkOut(...workOut, response.data);
-        console.log(response);
+        console.log("addWorkout response", response);
       })
       .catch(err => console.log(err));
   };
@@ -36,13 +37,13 @@ function App(props) {
     axiosWithAuth()
       .post("api/workouts/exercises", item)
       .then(response => {
+        console.log(response)
         setExercise(...exercise, response.data);
-        console.log("addExercise Response", response)
-        console.log("item being passed to addExercise", item)
+        console.log("post", item)
       })
       .catch(err => console.log(err));
   };
-  console.log(exercise)
+
   const deleteItem = id => {
     console.log("delete id", id)
     axiosWithAuth()
@@ -51,21 +52,19 @@ function App(props) {
       .catch(err => console.log(err))
   }
 
-
-
   const excrcse1 = useContext(ExerciseContext);
   const wrkout1 = useContext(WorkOutContext);
 
   return (
     <WorkOutContext.Provider value={{ workOut, addWorkout, setWorkOut, deleteItem }}>
-      <ExerciseContext.Provider value={{ exercise, addExercise, workOutId, setWorkOutId }}>
+      <ExerciseContext.Provider value={{ exercise, addExercise, workOutId, setWorkOutId, setExercise }}>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
           <Route path="/exercises/:id" things={props} component={ExercisePage} />
-          <Route path="/edit/:id" component={EditWorkout} />
+          <Route path="/edit/:id" thing={props} component={EditWorkout} />
           <header>
             <p>Workout Notes: {wrkout1.notes}</p>
             <p>Workout Date: {wrkout1.date}</p>

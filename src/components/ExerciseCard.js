@@ -4,20 +4,21 @@ import { ExerciseContext } from "../contexts/ExerciseContext";
 import axiosWithAuth from "../Auth/axiosWithAuth";
 
 export default function ExerciseCard({ props }) {
-    const { exercise, setExercise } = useContext(ExerciseContext);
+    const { setExercise, addExercise, exercise } = useContext(ExerciseContext);
     const [exercises, setExercises] = useState([]);
     const workOut_id = Number(props.match.params.id)
-    console.log(workOut_id)
+
     const user_id = Number(localStorage.getItem("user_id"))
     useEffect(() => {
         axiosWithAuth()
-            .get(`/api/workouts/exercises/`)
+            .get(`api/workouts/${user_id}`)
             .then(res => {
-                console.log(res)
                 setExercises(res.data);
+
+                console.log("get", res)
             });
-    }, []);
-    console.log(exercises)
+    }, [exercise, setExercise]);
+
 
 
     return (
@@ -25,6 +26,7 @@ export default function ExerciseCard({ props }) {
             {exercises.map(exercise => {
                 return (
                     <CardContainer key={exercise.id}>
+
                         <p>{exercise.exercise_name}</p>
                         <p>Reps: {exercise.exercise_reps}</p>
                         <p>Weight: {exercise.exercise_weight}</p>

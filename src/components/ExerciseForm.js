@@ -5,7 +5,7 @@ import { ExerciseContext } from "../contexts/ExerciseContext";
 const ExForm = ({ props, addNewExercise }) => {
     const { userId } = useContext(ExerciseContext);
     const workout_id = Number(props.match.params.id);
-    const user_id = localStorage.getItem("user_id")
+    const user_id = Number(localStorage.getItem("user_id"))
     const [exercise, setExercise] = useState({
         name: "",
         reps: "",
@@ -14,7 +14,7 @@ const ExForm = ({ props, addNewExercise }) => {
         "workout_id": workout_id,
         "user_id": user_id
     });
-    console.log("workout_id", workout_id)
+
 
     const handleChanges = event => {
         setExercise({
@@ -26,7 +26,7 @@ const ExForm = ({ props, addNewExercise }) => {
     const handleSubmit = event => {
         event.preventDefault();
         addNewExercise(exercise);
-        console.log("exercise", exercise)
+
         setExercise({ name: "", reps: "", weight: "", muscles: "" });
     };
 
