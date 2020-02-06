@@ -17,6 +17,7 @@ const Form = props => {
   const handleSubmit = event => {
     event.preventDefault();
     props.addNewWorkout(workout);
+    console.log("journal entry", workout)
     setWorkout({ notes: "" });
   };
 
