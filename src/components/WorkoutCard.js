@@ -34,8 +34,10 @@ export default function WorkoutCard(props) {
               <p>Workout Id: {workout.id}</p>
               <p>Notes: {workout.workout_note}</p>
             </Link>
-            <StyledButton onClick={e => routeToItem(e, workout)}>Edit</StyledButton>
-            <StyledButton onClick={e => deleteHandler(e, workout.id)}>Delete</StyledButton>
+            <ButtonContainer>
+              <StyledButton onClick={e => routeToItem(e, workout)}>Edit</StyledButton>
+              <StyledButton onClick={e => deleteHandler(e, workout.id)}>Delete</StyledButton>
+            </ButtonContainer>
           </CardContainer>
         );
       })}
@@ -48,9 +50,11 @@ const CardContainer = styled.div`
   width: 200px;
   height: 350px;
   border-radius: 60px;
+  border: 3px solid #eca400;
   margin: 20px;
   text-align: center;
   box-shadow: 9px 11px 37px 0px rgba(0,0,0,0.75);
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -62,11 +66,22 @@ const Container = styled.div`
 `;
 
 const StyledButton = styled.button`
-  background: #eca400;
+  background: white;
+  color: #eca400
   font-size: 1em;
   margin: 0.5em;
   padding: 0.3em 0.75em;
-  border: none;
+  border: 2px solid #eca400;
   border-radius: 3px;
   margin-top: 8%;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  position: absolute; 
+  bottom: 20px;
 `;

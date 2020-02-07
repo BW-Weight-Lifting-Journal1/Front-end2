@@ -4,6 +4,7 @@ import WorkoutCard from "./WorkoutCard";
 import { Div, Main } from "./User/theme";
 import styled from "styled-components";
 import { WorkOutContext } from "../contexts/WorkOutContext";
+import Navigation from "./Nav";
 
 export default function Dashboard(props) {
 
@@ -24,6 +25,7 @@ export default function Dashboard(props) {
   return (
     <Div>
       <Main>
+        <Navigation />
         <FormDiv>
           <Form addNewWorkout={addNewWorkout} />
         </FormDiv>
@@ -45,6 +47,7 @@ const FormDiv = styled.div`
     border-radius: 60px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin-top: 20px;
+    border: 2px solid white;
   `;
 
 const CardList = styled.div`
@@ -54,4 +57,5 @@ const CardList = styled.div`
     width: 80%;
     height: 800px;
     border-radius: 60px;
+    border: 1px solid white;
   `;
