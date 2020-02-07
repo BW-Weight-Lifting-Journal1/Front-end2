@@ -24,7 +24,7 @@ const Form = props => {
   return (
     <div>
       <label>
-        <h1>Journal Entry</h1>
+        <h1 className="form-header">Journal Entry</h1>
       </label>
       <form onSubmit={handleSubmit}>
         <input
@@ -48,11 +48,14 @@ const Form = props => {
 export default Form;
 
 const StyledButton = styled.button`
-  background: #02848E;
   font-size: 1em;
   margin: 0.5em;
   padding: .4em 0.75em;
   border: none;
   border-radius: 3px;
   margin-top: 3%;
+  background: #eca400;
+  border: 1px solid white;
+  color: #fff;
+  
 `;

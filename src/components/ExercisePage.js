@@ -4,6 +4,7 @@ import { Div, Main } from "./User/theme";
 import ExerciseCard from "./ExerciseCard";
 import styled from "styled-components";
 import { ExerciseContext } from "../contexts/ExerciseContext";
+import Navigation from "./Nav"
 
 export default function ExercisePage(props) {
   //   const [exercise, setExercise] = useState([]);
@@ -43,16 +44,18 @@ export default function ExercisePage(props) {
     border-radius: 60px;
   `;
 
-  return (
-    <Div>
-      <Main>
-        <FormDiv>
-          <ExForm props={props} addNewExercise={addNewExercise} />
-        </FormDiv>
-      </Main>
-      <CardList>
-        <ExerciseCard props={props} />
-      </CardList>
-    </Div>
-  );
+    return (
+        <Div>
+            <Main>
+                <Navigation />
+                <FormDiv>
+                    <ExForm props={props} addNewExercise={addNewExercise} />
+                </FormDiv>
+            </Main>
+            <CardList>
+                <ExerciseCard props={props} />
+            </CardList>
+        </Div>
+    );
 }
+
