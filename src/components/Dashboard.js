@@ -7,19 +7,18 @@ import { WorkOutContext } from "../contexts/WorkOutContext";
 import Navigation from "./Nav";
 
 export default function Dashboard(props) {
-
   const { addWorkout } = useContext(WorkOutContext);
-  const user_id = localStorage.getItem("user_id")
-  console.log("local Storage userId", user_id)
+  const user_id = localStorage.getItem("user_id");
+  console.log("local Storage userId", user_id);
 
   const addNewWorkout = work => {
     const newWorkout = {
       workout_note: work.notes,
       workout_date: Date(),
-      "user_id": user_id
+      user_id: user_id
     };
     addWorkout([newWorkout]);
-    console.log("newWorkout", newWorkout)
+    console.log("newWorkout", newWorkout);
   };
 
   return (
@@ -36,7 +35,6 @@ export default function Dashboard(props) {
     </Div>
   );
 }
-
 
 const FormDiv = styled.div`
     margin: auto;

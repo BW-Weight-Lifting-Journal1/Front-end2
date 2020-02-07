@@ -8,7 +8,6 @@ export default function WorkoutCard(props) {
   const { deleteItem } = useContext(WorkOutContext);
   const [workouts, setWorkouts] = useState([]);
 
-
   function routeToItem(ev, workout) {
     props.history.push(`/edit/${workout.id}`);
   }
@@ -31,7 +30,7 @@ export default function WorkoutCard(props) {
         return (
           <CardContainer key={workout.id}>
             <Link to={`/exercises/${workout.id}`}>
-              <p>Workout Id: {workout.id}</p>
+              <p>Workout Number: {workout.id}</p>
               <p>Notes: {workout.workout_note}</p>
             </Link>
             <ButtonContainer>
