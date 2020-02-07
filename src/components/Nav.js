@@ -24,7 +24,7 @@ const Navigation = () => {
             <Link className="dash-button" exact to="/dashboard">My Board</Link>
             </div>
             <div>
-            <Link className="log-button" exact to="/logout/">Log Out</Link>
+            <Link className="log-button" exact to="/">Log Out</Link>
             </div>
         </div>
     </NavContainer>
