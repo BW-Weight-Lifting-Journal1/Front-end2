@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
 import "./App.css";
 // Components
 import Welcome from "./components/User/WelcomePage";
-import EditWorkout from "./components/EditWorkout"
+import EditWorkout from "./components/EditWorkout";
 import GuestLogin from "./components/User/GuestLogin";
 import GuestRegister from "./components/User/GuestRegister";
 import Dashboard from "./components/Dashboard";
 import ExercisePage from "./components/ExercisePage";
-// Utils 
+// Utils
 import ProtectedRoute from "./Auth/ProtectedRoute";
 import axiosWithAuth from "./Auth/axiosWithAuth";
 // Contexts
@@ -19,63 +19,72 @@ function App(props) {
   const [workOut, setWorkOut] = useState([]);
   const [exercise, setExercise] = useState([]);
   const [workOutId, setWorkOutId] = useState();
-  const user_id = Number(localStorage.getItem("user_id"))
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get("/api/workouts")
+      .then(res => {
+        setWorkOut(res.data);
+      });
+  }, [setWorkOut]);
 
   const addWorkout = item => {
-    console.log("item passed to addWorkout in App.js", item);
-    console.log("workOut in App.js", workOut);
     axiosWithAuth()
       .post("api/workouts", item)
       .then(response => {
         setWorkOut(...workOut, response.data);
-        console.log("addWorkout response", response);
       })
       .catch(err => console.log(err));
   };
 
-  const addExercise = (item) => {
+  const addExercise = item => {
     axiosWithAuth()
       .post("api/workouts/exercises", item)
       .then(response => {
-        console.log(response)
         setExercise(...exercise, response.data);
-        console.log("post", item)
       })
       .catch(err => console.log(err));
   };
 
   const deleteItem = id => {
-    console.log("delete id", id)
+    console.log("delete id", id);
     axiosWithAuth()
       .delete(`/api/workouts/${id}`)
       .then(res => console.log(res))
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
-  const excrcse1 = useContext(ExerciseContext);
-  const wrkout1 = useContext(WorkOutContext);
+  const updateWorkout = (id, item) => {
+    axiosWithAuth()
+      .put(`/api/workouts/${id}`, item)
+      .then(response => {
+        props.history.push("/dashboard");
+      })
+      .catch(err => console.log(err));
+  };
 
   return (
-    <WorkOutContext.Provider value={{ workOut, addWorkout, setWorkOut, deleteItem }}>
-      <ExerciseContext.Provider value={{ exercise, addExercise, workOutId, setWorkOutId, setExercise }}>
+    <WorkOutContext.Provider
+      value={{ workOut, addWorkout, setWorkOut, deleteItem, updateWorkout }}
+    >
+      <ExerciseContext.Provider
+        value={{ exercise, addExercise, workOutId, setWorkOutId, setExercise }}
+      >
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route path="/login" component={GuestLogin} />
           <Route path="/register" component={GuestRegister} />
           <ProtectedRoute path="/dashboard" component={Dashboard} />
-          <Route path="/exercises/:id" things={props} component={ExercisePage} />
-          <Route path="/edit/:id" thing={props} component={EditWorkout} />
-          <header>
-            <p>Workout Notes: {wrkout1.notes}</p>
-            <p>Workout Date: {wrkout1.date}</p>
-            <p>Excercise Name: {excrcse1.name}</p>
-            <p>Excercise Reps: {excrcse1.reps}</p>
-            <p>Excercise Weight: {excrcse1.weight}</p>
-          </header>
+          <Route
+            path="/exercises/:id"
+            things={props}
+            component={ExercisePage}
+          />
+          <Route path="/edit/:id" workOut={workOut} component={EditWorkout} />
         </Switch>
       </ExerciseContext.Provider>
     </WorkOutContext.Provider>
   );
 }
-
-export default App;
+const AppWithRouter = withRouter(App);
+export default AppWithRouter;

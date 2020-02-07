@@ -4,38 +4,34 @@ import { ExerciseContext } from "../contexts/ExerciseContext";
 import axiosWithAuth from "../Auth/axiosWithAuth";
 
 export default function ExerciseCard({ props }) {
-    const { setExercise, addExercise, exercise } = useContext(ExerciseContext);
-    const [exercises, setExercises] = useState([]);
-    const workOut_id = Number(props.match.params.id)
+  const { setExercise, exercise } = useContext(ExerciseContext);
+  const [exercises, setExercises] = useState([]);
+  const user_id = Number(localStorage.getItem("user_id"));
 
-    const user_id = Number(localStorage.getItem("user_id"))
-    useEffect(() => {
-        axiosWithAuth()
-            .get(`api/workouts/${user_id}`)
-            .then(res => {
-                setExercises(res.data);
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`api/workouts/${user_id}`)
+      .then(res => {
+        setExercises(res.data);
 
-                console.log("get", res)
-            });
-    }, [exercise, setExercise]);
+        console.log("get", res);
+      });
+  }, [exercise, setExercise, user_id]);
 
-
-
-    return (
-        <Container>
-            {exercises.map(exercise => {
-                return (
-                    <CardContainer key={exercise.id}>
-
-                        <p>{exercise.exercise_name}</p>
-                        <p>Reps: {exercise.exercise_reps}</p>
-                        <p>Weight: {exercise.exercise_weight}</p>
-                        <p>Muscles Targeted: {exercise.muscles_targeted}</p>
-                    </CardContainer>
-                );
-            })}
-        </Container>
-    );
+  return (
+    <Container>
+      {exercises.map(exercise => {
+        return (
+          <CardContainer key={exercise.id}>
+            <p>{exercise.exercise_name}</p>
+            <p>Reps: {exercise.exercise_reps}</p>
+            <p>Weight: {exercise.exercise_weight}</p>
+            <p>Muscles Targeted: {exercise.muscles_targeted}</p>
+          </CardContainer>
+        );
+      })}
+    </Container>
+  );
 }
 
 const CardContainer = styled.div`

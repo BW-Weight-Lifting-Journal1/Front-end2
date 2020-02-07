@@ -6,24 +6,24 @@ import styled from "styled-components";
 import { ExerciseContext } from "../contexts/ExerciseContext";
 
 export default function ExercisePage(props) {
-    //   const [exercise, setExercise] = useState([]);
-    const { addExercise, userId } = useContext(ExerciseContext);
-    const user_id = Number(localStorage.getItem("user_id"))
-    const workout_id = Number(props.match.params.id);
+  //   const [exercise, setExercise] = useState([]);
+  const { addExercise, userId } = useContext(ExerciseContext);
+  const user_id = Number(localStorage.getItem("user_id"));
+  const workout_id = Number(props.match.params.id);
 
-    const addNewExercise = exercise => {
-        const newExercise = {
-            exercise_name: exercise.name,
-            exercise_reps: exercise.reps,
-            exercise_weight: exercise.weight,
-            muscles_targeted: exercise.muscles,
-            "workout_id": workout_id,
-            "user_id": user_id
-        };
-        addExercise(newExercise);
+  const addNewExercise = exercise => {
+    const newExercise = {
+      exercise_name: exercise.name,
+      exercise_reps: exercise.reps,
+      exercise_weight: exercise.weight,
+      muscles_targeted: exercise.muscles,
+      workout_id: workout_id,
+      user_id: user_id
     };
+    addExercise(newExercise);
+  };
 
-    const FormDiv = styled.div`
+  const FormDiv = styled.div`
     margin: auto;
     text-align: center;
     width: 800px;
@@ -34,7 +34,7 @@ export default function ExercisePage(props) {
     margin-top: 20px;
   `;
 
-    const CardList = styled.div`
+  const CardList = styled.div`
     background: #006494;
     margin: auto;
     margin-top: 20px;
@@ -43,16 +43,16 @@ export default function ExercisePage(props) {
     border-radius: 60px;
   `;
 
-    return (
-        <Div>
-            <Main>
-                <FormDiv>
-                    <ExForm props={props} addNewExercise={addNewExercise} />
-                </FormDiv>
-            </Main>
-            <CardList>
-                <ExerciseCard props={props} />
-            </CardList>
-        </Div>
-    );
+  return (
+    <Div>
+      <Main>
+        <FormDiv>
+          <ExForm props={props} addNewExercise={addNewExercise} />
+        </FormDiv>
+      </Main>
+      <CardList>
+        <ExerciseCard props={props} />
+      </CardList>
+    </Div>
+  );
 }
