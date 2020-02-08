@@ -23,7 +23,7 @@ export default function ExerciseCard({ props }) {
       {exercises.map(exercise => {
         return (
           <CardContainer key={exercise.id}>
-            <p>{exercise.exercise_name}</p>
+            <h3>{exercise.exercise_name}</h3>
             <p>Reps: {exercise.exercise_reps}</p>
             <p>Weight: {exercise.exercise_weight}</p>
             <p>Muscles Targeted: {exercise.muscles_targeted}</p>
@@ -41,6 +41,10 @@ const CardContainer = styled.div`
   border-radius: 60px;
   margin: 20px;
   text-align: center;
+
+  p {
+    margin: 3px 3px 20px 3px;
+  }
 `;
 
 const Container = styled.div`
