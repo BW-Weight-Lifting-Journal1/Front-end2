@@ -9,13 +9,13 @@ export const Div = styled.div`
 `;
 
 export const Main = styled.div`
-margin: 0;
-padding: 0px 0px 10px 0px;
-display: flex;
-justify-content: center;
-align-items: center;
-text-align: center;
-flex-direction: column;
+  margin: 0;
+  padding: 0px 0px 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
 `;
 
 export const FormDiv = styled.div`

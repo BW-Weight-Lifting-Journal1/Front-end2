@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledTitle = styled.div`
-  height: 100px;
   margin-bottom: 40px;
+  margin-top: 15px;
   width: 50%;
   border: 1px solid black;
   box-shadow: 10px 10px 5px -4px rgba(0, 0, 0, 0.5);

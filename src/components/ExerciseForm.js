@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 const ExForm = ({ props, addNewExercise }) => {
   const workout_id = Number(props.match.params.id);
@@ -69,12 +70,24 @@ const ExForm = ({ props, addNewExercise }) => {
           onChange={handleChanges}
         />
         <br />
-        <button type="submit" id="addEx">
+        <StyledButton type="submit" id="addEx">
           Create Exercise
-        </button>
+        </StyledButton>
       </form>
     </div>
   );
 };
 
 export default ExForm;
+
+const StyledButton = styled.button`
+  font-size: 1em;
+  margin: 0.5em;
+  padding: 0.4em 0.75em;
+  border: none;
+  border-radius: 3px;
+  margin-top: 3%;
+  background: #006494;
+  border: 1px solid white;
+  color: #fff;
+`;
